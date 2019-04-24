@@ -12,6 +12,8 @@ function [faceMatrix] = loopThroughFile(folderPath)
             I = reshape(I, [a * b, 1]);
             faceMatrix = [faceMatrix, I];
     end
+    
+    
 end
 
 
@@ -48,6 +50,6 @@ function [S,D,V] = imagecompress(numberKeepTerms, imageFile)
 
 end
 
-function []= imageSVDShow(s,v,d)
+function imageSVDShow(s,v,d)
     imshow(uint8(s * diag(v) * d.'));
 end
