@@ -15,6 +15,8 @@ function compressionMain(numberKeepTerms, imageFile)
     %compress the image
     [U, d, V] = compressImage(numberKeepTerms, imageFile);
     
+    
+    
     %The following compresses images
     %   this is a proof of concept
     %   storing the images as bin files
@@ -40,7 +42,11 @@ function compressionMain(numberKeepTerms, imageFile)
 
     %compress the image
     Compressed = showSVD(U1, d1, V1);
-    
+    %figure
+    %plot(x, d)
+    %title('Singular Values of Input Image vs Diagonal Index');
+    %xlabel('Diagonal Index');
+    %ylabel('Singular Value of Input Image');
     %show the images
     imshow([Origional, uint8(Compressed)]);
 end
