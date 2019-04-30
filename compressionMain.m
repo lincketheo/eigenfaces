@@ -2,19 +2,20 @@
 function compressionMain(numberKeepTerms, imageFile)
     %compresses given image and stores it in memory as well as displays
     %the origional and compressed image side by side
+        
         %@param numberKeepTerms number of singular values to keep
         %@param imageFile path to file
     
     %origional image matrix
     Origional = imread(imageFile);
-    %if file is rgb, make it grey
+    
+    %if file is rgb, make it gray
     if length(size(Origional)) == 3
        Origional = rgb2gray(Origional);
     end
     
     %compress the image
     [U, d, V] = compressImage(numberKeepTerms, imageFile);
-    
     
     
     %The following compresses images
@@ -28,17 +29,17 @@ function compressionMain(numberKeepTerms, imageFile)
     [v1, v2] = size(V);
     
     %write the origional matrix to memory
-    writeMatrixToMemory(Origional, 'Orig', 'uint8');
+    writeMatrixToMemory(Origional, './compressed/Orig', 'uint8');
     
     %write the compressed values 
-    writeMatrixToMemory(U, 'U', 'double');
-    writeMatrixToMemory(d, 'd', 'double');
-    writeMatrixToMemory(V, 'V', 'double');
+    writeMatrixToMemory(U, './compressed/U', 'float');
+    writeMatrixToMemory(d, './compressed/d', 'float');
+    writeMatrixToMemory(V, './compressed/V', 'float');
 
     %read the compressed values
-    U1 = readMatrixFromMemory(u1, u2, 'U', 'double');
-    d1 = readMatrixFromMemory(d_1, d_2, 'd', 'double');
-    V1 = readMatrixFromMemory(v1, v2, 'V', 'double');
+    U1 = readMatrixFromMemory(u1, u2, './compressed/U', 'float');
+    d1 = readMatrixFromMemory(d_1, d_2, './compressed/d', 'float');
+    V1 = readMatrixFromMemory(v1, v2, './compressed/V', 'float');
 
     %compress the image
     Compressed = showSVD(U1, d1, V1);
@@ -48,7 +49,7 @@ function compressionMain(numberKeepTerms, imageFile)
     %xlabel('Diagonal Index');
     %ylabel('Singular Value of Input Image');
     %show the images
-    imshow([Origional, uint8(Compressed)]);
+    imshow(uint8(Compressed));
 end
 
 %from the given U D V, decompress image - obviously pretty straight forward

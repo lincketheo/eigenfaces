@@ -1,0 +1,17 @@
+p = imread('./faces/cgboyc.1.jpg');
+p = double(rgb2gray(p));
+p = reshape(p, 200 * 180, 1);
+p = p - avg;
+coordinates = U.' * p;
+
+coordinates = coordinates.';
+i = 5;
+j = 8;
+z = 4;
+
+temp = coordinates;
+coordinates(i) = coordinates(i) * 2;
+coordinates(j) = coordinates(j) * -3;
+coordinates(z) = coordinates(z) * 100;
+
+imshow([uint8(reshape(U * coordinates.' + avg, 200, 180)), uint8(reshape(U * temp.' + avg, 200, 180))]);
