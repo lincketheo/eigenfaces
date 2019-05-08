@@ -1,0 +1,8 @@
+
+ratios = [];
+norms = [];
+for i=1:100
+    [s, normVal] = compressionMain(i, './data/faces/9326871.1.jpg');
+    ratios = [ratios, s];
+    norms = [norms, normVal];
+end

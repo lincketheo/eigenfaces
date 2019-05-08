@@ -1,5 +1,5 @@
 
-function compressionMain(numberKeepTerms, imageFile)
+function [s, normVal] = compressionMain(numberKeepTerms, imageFile)
     %compresses given image and stores it in memory as well as displays
     %the origional and compressed image side by side
         
@@ -29,27 +29,37 @@ function compressionMain(numberKeepTerms, imageFile)
     [v1, v2] = size(V);
     
     %write the origional matrix to memory
-    writeMatrixToMemory(Origional, './compressed/Orig', 'uint8');
+    %writeMatrixToMemory(Origional, './compressed/Orig', 'uint8');
     
     %write the compressed values 
-    writeMatrixToMemory(U, './compressed/U', 'float');
-    writeMatrixToMemory(d, './compressed/d', 'float');
-    writeMatrixToMemory(V, './compressed/V', 'float');
+    %writeMatrixToMemory(U, './compressed/U', 'float');
+    %writeMatrixToMemory(d, './compressed/d', 'float');
+    %writeMatrixToMemory(V, './compressed/V', 'float');
 
     %read the compressed values
-    U1 = readMatrixFromMemory(u1, u2, './compressed/U', 'float');
-    d1 = readMatrixFromMemory(d_1, d_2, './compressed/d', 'float');
-    V1 = readMatrixFromMemory(v1, v2, './compressed/V', 'float');
+    %U1 = readMatrixFromMemory(u1, u2, './compressed/U', 'float');
+    %d1 = readMatrixFromMemory(d_1, d_2, './compressed/d', 'float');
+    %V1 = readMatrixFromMemory(v1, v2, './compressed/V', 'float');
 
     %compress the image
-    Compressed = showSVD(U1, d1, V1);
+    Compressed = showSVD(U, d, V);
     %figure
     %plot(x, d)
     %title('Singular Values of Input Image vs Diagonal Index');
     %xlabel('Diagonal Index');
     %ylabel('Singular Value of Input Image');
     %show the images
-    imshow(uint8(Compressed));
+    %imshow(uint8(Compressed));
+    
+    s1 = size(Origional, 1) * size(Origional, 2);
+    s2 = 4 * (size(U, 1) * size(U, 2) + d_1 + size(V, 1) * size(V, 2));
+
+    s = s2 / s1;
+    normVal = norm(double(Origional) - Compressed) / norm(double(Origional));
+    
+    
+    
+    
 end
 
 %from the given U D V, decompress image - obviously pretty straight forward
